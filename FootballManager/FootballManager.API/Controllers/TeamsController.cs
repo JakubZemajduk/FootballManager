@@ -1,4 +1,5 @@
-﻿using FootballManager.API.Persistance;
+﻿using FootballManager.API.Models;
+using FootballManager.API.Persistance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,12 @@ namespace FootballManager.API.Controllers
         public IActionResult Get()
         {
             return Ok(_teamsRepository.GetTeams());
+        }
+
+        [HttpPost(Name = "CreateTeam")]
+        public IActionResult Post([FromBody]Team team) 
+        {
+            return Ok(_teamsRepository.Create(team));
         }
     }
 }
