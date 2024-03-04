@@ -27,5 +27,19 @@ namespace FootballManager.API.Controllers
         {
             return Ok(_teamsRepository.Create(team));
         }
+
+        [HttpPut("{id}",Name = "PutTeam")]
+        public IActionResult Put([FromRoute] int id, [FromBody] Team team)
+        {
+             _teamsRepository.Update(id, team);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}", Name = "DeleteTeam")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            _teamsRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
