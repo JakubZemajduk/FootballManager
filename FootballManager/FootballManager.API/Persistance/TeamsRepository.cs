@@ -1,6 +1,4 @@
 ﻿using FootballManager.API.Models;
-using System.Xml.Serialization;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FootballManager.API.Persistance
 {
