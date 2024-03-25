@@ -1,4 +1,6 @@
-﻿using FootballManager.API.Models;
+﻿using FootballManager.API.Converters;
+using FootballManager.API.DTOs;
+using FootballManager.API.Models;
 using FootballManager.API.Persistance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,19 +21,23 @@ namespace FootballManager.API.Controllers
         [HttpGet(Name = "GetTeams")]
         public IActionResult Get()
         {
-            return Ok(_teamsRepository.GetTeams());
+            var teams = _teamsRepository.GetTeams();
+            var dtos = teams
+                .Select(t => t.ToDto())
+                .ToList();
+            return Ok(dtos);
         }
 
         [HttpPost(Name = "CreateTeam")]
-        public IActionResult Post([FromBody]Team team) 
+        public IActionResult Post([FromBody]TeamDto team) 
         {
-            return Ok(_teamsRepository.Create(team));
+            return Ok(_teamsRepository.Create(team.ToDatabaseModel()));
         }
 
         [HttpPut("{id}",Name = "PutTeam")]
-        public IActionResult Put([FromRoute] int id, [FromBody] Team team)
+        public IActionResult Put([FromRoute] int id, [FromBody] TeamDto team)
         {
-             _teamsRepository.Update(id, team);
+             _teamsRepository.Update(id, team.ToDatabaseModel());
             return NoContent();
         }
 

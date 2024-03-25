@@ -1,4 +1,5 @@
 ﻿using FootballManager.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FootballManager.API.Persistance
 {
@@ -43,7 +44,7 @@ namespace FootballManager.API.Persistance
 
         public ICollection<Team> GetTeams()
         {
-            return _context.Teams.ToList();
+            return _context.Teams.Include(t => t.Players).ToList();
         }
 
         public void Update(int id, Team team)
