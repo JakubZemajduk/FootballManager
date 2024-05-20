@@ -9,4 +9,8 @@ export class TeamsService {
     getTeams$(){
         return this.http.get<Team[]>('https://localhost:7041/api/teams');
     }
+
+    addTeam$(team: Team){
+        return this.http.post('https://localhost:7041/api/teams', team);
+    }
 }
