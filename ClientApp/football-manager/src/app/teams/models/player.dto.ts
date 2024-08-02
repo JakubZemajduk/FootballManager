@@ -1,5 +1,6 @@
 export interface PlayerDto{
-    id: number;
+    teamId: number;
+    id?: number;
     name: string;
     surname: string;
     year: number;

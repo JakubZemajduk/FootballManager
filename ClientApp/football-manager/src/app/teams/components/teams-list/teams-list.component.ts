@@ -8,6 +8,8 @@ import { Team } from '../../models/team';
 import { TeamsService } from '../../services/teams.service';
 import { CommonModule } from '@angular/common';
 import { PlayerDto } from '../../models/player.dto';
+import { PlayerFormComponent } from '../../../player-form/player-form.component';
+import { PlayerService } from '../../../services/player.service';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -47,7 +49,8 @@ export class TeamsListComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(TeamFormComponent);
   }
+
   openPlayerDialog(): void {
-    
+    const dialogRef = this.dialog.open(PlayerFormComponent);
   }
 }

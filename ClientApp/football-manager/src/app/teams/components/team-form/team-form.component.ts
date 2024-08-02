@@ -6,7 +6,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TeamsService } from '../../services/teams.service';
 import { Team } from '../../models/team';
 import { tap } from 'rxjs';
-import { PlayerDto } from '../../models/player.dto';
 
 @Component({
   selector: 'app-team-form',

@@ -1,6 +1,10 @@
-<h2 mat-dialog-title>Add player</h2>
+<h2 mat-dialog-title>Add Player</h2>
 <mat-dialog-content>
     <form class="container" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>TeamId</mat-label>
+            <input matInput type="number" placeholder="Ex. 1" formControlName="teamId">
+        </mat-form-field>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput placeholder="Ex. Lionel" formControlName="name">
@@ -11,7 +15,11 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Year</mat-label>
-            <input matInput type="number" placeholder="Ex. 20" formControlName="year">
+            <input matInput type="number" placeholder="Ex. 35" formControlName="year">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Position</mat-label>
+            <input matInput type="number" placeholder="Ex. 3" formControlName="position">
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="submit()">Submit</button>
     </form>
