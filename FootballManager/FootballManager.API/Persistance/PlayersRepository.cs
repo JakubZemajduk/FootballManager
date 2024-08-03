@@ -5,6 +5,7 @@ namespace FootballManager.API.Persistance
     public interface IPlayersRepository
     {
         ICollection<Player> GetPlayers();
+        Player GetPlayerById(int playerId);
 
         int Create(Player player);
 
@@ -60,6 +61,10 @@ namespace FootballManager.API.Persistance
             toUpdate.TeamId = player.TeamId;
             toUpdate.Position = player.Position;
             _context.SaveChanges();
+        }
+        public Player GetPlayerById(int id)
+        {
+            return _context.Players.FirstOrDefault(p => p.Id == id);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace FootballManager.API.Persistance
     public interface ITeamsRepository
     {
         ICollection<Team> GetTeams();
+        Team GetTeamById(int teamId);
 
         int Create(Team team);
 
@@ -59,6 +60,10 @@ namespace FootballManager.API.Persistance
             toUpdate.Year = team.Year;
             toUpdate.City = team.City;
             _context.SaveChanges();
+        }
+        public Team GetTeamById(int id)
+        {
+            return _context.Teams.Where(t => t.Id == id).SingleOrDefault();
         }
     }
 }

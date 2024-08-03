@@ -11,9 +11,11 @@ namespace FootballManager.API.Controllers
     public class PlayersController : ControllerBase
     {
         private readonly IPlayersRepository _playersRepository;
-        public PlayersController(IPlayersRepository playersRepository)
+        private readonly ITeamsRepository _teamsRepository;
+        public PlayersController(IPlayersRepository playersRepository, ITeamsRepository teamsRepository)
         {
             _playersRepository = playersRepository;
+            _teamsRepository = teamsRepository;
         }
 
         [HttpGet(Name = "GetPlayers")]
@@ -43,6 +45,18 @@ namespace FootballManager.API.Controllers
         public IActionResult Delete([FromRoute] int id)
         {
             _playersRepository.Delete(id);
+            return NoContent();
+        }
+
+        
+        [HttpPost("transfer", Name = "TransferPlayer")]
+        public IActionResult TransferPlayer([FromBody] TransferDto transferDto)
+        {
+            var targetTeam = _teamsRepository.GetTeamById(transferDto.TargetTeamId);
+            var player = _playersRepository.GetPlayerById(transferDto.PlayerId);
+
+            player.TeamId = transferDto.TargetTeamId;
+            _playersRepository.Update(player.Id, player);
             return NoContent();
         }
     }
