@@ -7,6 +7,7 @@ namespace FootballManager.API.Persistance
         ICollection<Player> GetPlayers();
         Player GetPlayerById(int playerId);
 
+        IEnumerable<Player> GetPlayersByTeamId(int teamId);
         int Create(Player player);
 
         void Update(int id, Player player);
@@ -65,6 +66,11 @@ namespace FootballManager.API.Persistance
         public Player GetPlayerById(int id)
         {
             return _context.Players.FirstOrDefault(p => p.Id == id);
+        }
+
+        public IEnumerable<Player> GetPlayersByTeamId(int teamId)
+        {
+            return _context.Players.Where(p => p.TeamId == teamId).ToList();
         }
     }
 }

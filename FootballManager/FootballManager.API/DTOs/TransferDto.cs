@@ -4,5 +4,6 @@
     {
         public int PlayerId { get; set; }
         public int TargetTeamId { get; set; }
+        public int SourceTeamId { get; set; }
     }
 }

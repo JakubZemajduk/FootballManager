@@ -1,14 +1,28 @@
-<h2 mat-dialog-title>Add Player</h2>
+<h2 mat-dialog-title>Add Transfer</h2>
 <mat-dialog-content>
-    <form class="container" [formGroup]="form">
-        <mat-form-field>
-            <mat-label>PlayerId</mat-label>
-            <input matInput type="number" placeholder="Ex. 1" formControlName="playerId">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>TargetTeamId</mat-label>
-            <input matInput type="number" placeholder="Ex. 2007" formControlName="targetTeamId">
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-    </form>
+<form [formGroup]="form" class ="container" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>From</mat-label>
+      <mat-select formControlName="sourceTeamId" (selectionChange)="onSourceTeamChange($event)">
+        <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Choose a player</mat-label>
+      <mat-select formControlName="playerId">
+        <mat-option *ngFor="let player of players" [value]="player.id">{{ player.name }} {{player.surname}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>To</mat-label>
+      <mat-select formControlName="targetTeamId">
+        <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
 </mat-dialog-content>
+  
