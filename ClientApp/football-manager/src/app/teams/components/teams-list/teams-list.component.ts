@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 import { PlayerDto } from '../../models/player.dto';
 import { PlayerFormComponent } from '../../../player-form/player-form.component';
 import { PlayerService } from '../../../services/player.service';
+import { TransferFormComponent } from '../../../transfer/components/transfer-form/transfer-form.component';
+import { TransferService } from '../../../transfer/services/transfer.service';
+import { TransferDto } from '../../../transfer/model/transfer.dto';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -52,5 +55,9 @@ export class TeamsListComponent {
 
   openPlayerDialog(): void {
     const dialogRef = this.dialog.open(PlayerFormComponent);
+  }
+
+  openTransferDialog(): void {
+    const dialogRef = this.dialog.open(TransferFormComponent);
   }
 }
