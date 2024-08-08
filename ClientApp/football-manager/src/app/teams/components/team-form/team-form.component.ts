@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule,MatDialogRef } from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TeamsService } from '../../services/teams.service';
 import { Team } from '../../models/team';
 import { tap } from 'rxjs';
+import { TeamSuccessDialogComponent } from '../team-success-dialog/team-success-dialog.component';
 
 @Component({
   selector: 'app-team-form',
   standalone: true,
-  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule],
+  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule,TeamSuccessDialogComponent],
   templateUrl: './team-form.component.html',
   styleUrl: './team-form.component.scss',
   providers: [TeamsService]
 })
 export class TeamFormComponent {
-  constructor(private fb: FormBuilder, private teamService: TeamsService){}
+  constructor(
+    private fb: FormBuilder, 
+    private teamService: TeamsService,
+    public dialog: MatDialog,
+    public dialogRef:MatDialogRef<TeamFormComponent>,){}
   form = this.fb.group({
     name: [null, [Validators.required]],
     city: [null, [Validators.required]],
@@ -35,8 +40,11 @@ export class TeamFormComponent {
     }
     this.teamService.addTeam$(team)
     .pipe(
-      tap(_ => alert('Team added!'))
+      tap(_ => this.openSuccessDialog())
     )
     .subscribe();
+  }
+  openSuccessDialog(){
+    this.dialog.open(TeamSuccessDialogComponent);
   }
 }

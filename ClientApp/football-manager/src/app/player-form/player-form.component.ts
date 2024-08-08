@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PlayerService } from '../services/player.service';
 import { PlayerDto } from '../teams/models/player.dto';
 import { tap } from 'rxjs';
+import { PlayerSuccessDialogComponent } from './player-success-dialog/player-success-dialog.component';
 
 @Component({
   selector: 'app-player-form',
   standalone: true,
-  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule],
+  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule,PlayerSuccessDialogComponent],
   templateUrl: './player-form.component.html',
   styleUrl: './player-form.component.scss',
   providers: [PlayerService]
 })
 export class PlayerFormComponent {
-  constructor(private fb: FormBuilder, private playerService: PlayerService){}
+  constructor(
+    private fb: FormBuilder, 
+    public dialog: MatDialog,
+    public dialogRef:MatDialogRef<PlayerFormComponent>,
+    private playerService: PlayerService){}
   form = this.fb.group({
     teamId: [null, [Validators.required]],
     name: [null, [Validators.required]],
@@ -39,8 +44,11 @@ submit(){
 
   this.playerService.addPlayer$(player)
   .pipe(
-    tap(_ => alert('Player added!'))
+    tap(_ => this.openSuccessDialog())
   )
   .subscribe();
 }
+  openSuccessDialog(){
+    this.dialog.open(PlayerSuccessDialogComponent);
+  }
 }

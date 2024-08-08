@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,10 +11,11 @@ import { TransferDto } from '../../model/transfer.dto';
 import { TransferService } from '../../services/transfer.service';
 import { TeamsService } from '../../../teams/services/teams.service';
 import { PlayerService } from '../../../services/player.service';
+import { TransferSuccessDialogComponent } from '../transfer-success-dialog/transfer-success-dialog.component';
 @Component({
   selector: 'app-transfer-form',
   standalone: true,
-  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule,MatOptionModule,MatSelectModule,CommonModule],
+  imports: [MatInputModule, MatDialogModule, MatButtonModule,ReactiveFormsModule,MatOptionModule,MatSelectModule,CommonModule,TransferSuccessDialogComponent],
   templateUrl: './transfer-form.component.html',
   styleUrl: './transfer-form.component.scss',
   providers: [TransferService,TeamsService,PlayerService]
@@ -24,6 +25,8 @@ export class TransferFormComponent implements OnInit{
   players: any[] = [];  
   constructor(
     private fb: FormBuilder, 
+    public dialog: MatDialog,
+    public dialogRef:MatDialogRef<TransferFormComponent>,
     private transferService: TransferService,
     private teamService: TeamsService,
     private playerService: PlayerService){}
@@ -64,9 +67,12 @@ submit(){
 
   this.transferService.addTransfer$(transfer)
   .pipe(
-    tap(_ => alert('Transfer done!'))
+    tap(_ => this.openSuccessDialog())
   )
   .subscribe();
 }
+  openSuccessDialog(){
+    this.dialog.open(TransferSuccessDialogComponent);
+  }
 }
 

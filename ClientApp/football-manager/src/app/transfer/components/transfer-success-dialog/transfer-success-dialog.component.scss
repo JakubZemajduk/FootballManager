@@ -1,0 +1,12 @@
+::ng-deep mat-dialog-container {
+  padding: 24px;
+  width: 400px !important;
+  height: 200px !important;
+  border-radius: 12px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff, #f0f0f0); 
+}
