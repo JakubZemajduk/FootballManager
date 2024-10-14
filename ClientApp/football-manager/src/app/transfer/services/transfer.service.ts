@@ -7,6 +7,6 @@ export class TransferService {
     constructor(private http:HttpClient){}
 
     addTransfer$(transfer: TransferDto){
-        return this.http.post('https://localhost:7041/api/Players/transfer', transfer);
+        return this.http.post('https://localhost:7041/api/Transfer', transfer);
     }
 }
