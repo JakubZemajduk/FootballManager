@@ -9,5 +9,7 @@
         public string Surname { get; set; }
         public int Year { get; set; }
         public Positions Position { get; set; }
+
+        public ICollection<Transfer> Transfers { get; set; } = new List<Transfer>();
     }
 }

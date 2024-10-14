@@ -9,5 +9,8 @@ namespace FootballManager.API.DTOs
         public int Year { get; set; }
         public string City { get; set; }
         public ICollection<PlayerDto> Players { get; set;}
+
+        public List<TransferDto> IncomingTransfers { get; set; } = new List<TransferDto>();
+        public List<TransferDto> OutgoingTransfers { get; set; } = new List<TransferDto>();
     }
 }

@@ -48,19 +48,6 @@ namespace FootballManager.API.Controllers
             return NoContent();
         }
 
-        
-        [HttpPost("transfer", Name = "TransferPlayer")]
-        public IActionResult TransferPlayer([FromBody] TransferDto transferDto)
-        {
-            var sourceTeam = _teamsRepository.GetTeamById(transferDto.SourceTeamId);
-            var targetTeam = _teamsRepository.GetTeamById(transferDto.TargetTeamId);
-            var player = _playersRepository.GetPlayerById(transferDto.PlayerId);
-
-            player.TeamId = transferDto.TargetTeamId;
-            _playersRepository.Update(player.Id, player);
-            return NoContent();
-        }
-
         [HttpGet("team/{teamId}", Name = "GetPlayersByTeam")]
         public IActionResult GetPlayersByTeam(int teamId)
         {
